@@ -4,15 +4,14 @@ Aplicación web para analizar archivos y verificar si son malware consultando m�
 
 ## 🚀 Características
 
-- ✅ **Sin API Keys requeridas** - Funciona sin necesidad de registrarse en servicios externos
+- 🔑 **APIs oficiales gratuitas** - Consulta las APIs JSON de abuse.ch, VirusTotal y Hybrid Analysis (registro gratis, sin coste)
 - 📁 **Soporte de archivos hasta 50MB**
 - 🔐 **Múltiples algoritmos de hash** - MD5, SHA-1, SHA-256
 - 🌐 **Consulta a múltiples servicios**:
-  - AlienVault OTX
-  - MalwareBazaar
-  - ThreatFox
-  - VirusTotal (enlace manual)
-  - Hybrid Analysis (enlace manual)
+  - AlienVault OTX (funciona sin clave)
+  - MalwareBazaar, ThreatFox y URLhaus (abuse.ch)
+  - VirusTotal (70+ motores antivirus)
+  - Hybrid Analysis (sandbox / Falcon Sandbox)
 - 🎨 **Interfaz moderna y responsive**
 - 🌙 **Modo oscuro automático**
 - ⚡ **Desplegado en Vercel**
@@ -38,12 +37,21 @@ cd hash-checker
 npm install
 ```
 
-3. Ejecuta el servidor de desarrollo:
+3. Configura tus claves de API (gratuitas). Copia el ejemplo y rellénalo:
+```bash
+cp .env.local.example .env.local
+```
+   - **ABUSECH_AUTH_KEY** → una sola clave para MalwareBazaar, ThreatFox y URLhaus ([auth.abuse.ch](https://auth.abuse.ch/))
+   - **VIRUSTOTAL_API_KEY** → [virustotal.com](https://www.virustotal.com/gui/my-apikey) (pública, uso no comercial)
+   - **HYBRID_ANALYSIS_API_KEY** → [hybrid-analysis.com](https://www.hybrid-analysis.com/)
+   - **OTX_API_KEY** → opcional; OTX funciona sin clave
+
+4. Ejecuta el servidor de desarrollo:
 ```bash
 npm run dev
 ```
 
-4. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+5. Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
 
 ## 🚀 Despliegue en Vercel
 
@@ -64,14 +72,16 @@ npm run dev
 
 ## 🔒 Servicios de Consulta
 
-### Con API Pública (sin autenticación):
-- **AlienVault OTX** - Base de datos de amenazas colaborativa
-- **MalwareBazaar** - Repositorio de muestras de malware
-- **ThreatFox** - Base de datos de indicadores de compromiso
+Todos mediante **API JSON oficial** (sin scraping):
 
-### Enlaces Manuales:
-- **VirusTotal** - 70+ motores antivirus
-- **Hybrid Analysis** - Análisis dinámico de malware
+| Servicio | Clave | Cobertura |
+|---|---|---|
+| **abuse.ch** (MalwareBazaar, ThreatFox, URLhaus) | 1 Auth-Key gratuita compartida | Muestras de malware, IOCs y URLs maliciosas |
+| **VirusTotal** | Clave pública gratuita (500/día, 4/min) | 70+ motores antivirus |
+| **Hybrid Analysis** | Clave gratuita | Sandbox y familia de malware |
+| **AlienVault OTX** | Opcional | Base de datos de amenazas colaborativa |
+
+Si una clave no está configurada, ese servicio se muestra como "No disponible" y el análisis continúa con el resto.
 
 ## 🎯 Casos de Uso
 
@@ -86,7 +96,7 @@ npm run dev
 - Los archivos se procesan en memoria y no se almacenan
 - Solo se calculan hashes, no se ejecuta código
 - Las consultas son de solo lectura
-- No se requiere autenticación ni API keys
+- Las claves de API viven en variables de entorno y nunca se exponen al cliente
 - Límite de 50MB por razones de rendimiento
 
 ## 📄 Licencia

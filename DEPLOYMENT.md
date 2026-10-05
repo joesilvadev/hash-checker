@@ -57,12 +57,21 @@ Después del despliegue:
 
 En Vercel → Settings → Domains, puedes agregar un dominio personalizado.
 
-### Variables de entorno
+### Variables de entorno (obligatorio)
 
-Si en el futuro quieres agregar API keys:
-1. Ve a Vercel → Settings → Environment Variables
-2. Agrega las variables necesarias
-3. Redespliega la aplicación
+La app consulta APIs que requieren claves **gratuitas**. Antes de desplegar:
+
+1. Ve a Vercel → tu proyecto → **Settings → Environment Variables**
+2. Agrega estas variables (igual que en tu `.env.local`):
+
+   | Variable | Obligatoria | Dónde conseguirla |
+   |---|---|---|
+   | `ABUSECH_AUTH_KEY` | Sí (cubre 3 servicios) | [auth.abuse.ch](https://auth.abuse.ch/) |
+   | `VIRUSTOTAL_API_KEY` | Sí | [virustotal.com/gui/my-apikey](https://www.virustotal.com/gui/my-apikey) |
+   | `HYBRID_ANALYSIS_API_KEY` | Sí | [hybrid-analysis.com](https://www.hybrid-analysis.com/) |
+   | `OTX_API_KEY` | No (opcional) | [otx.alienvault.com/api](https://otx.alienvault.com/api) |
+
+3. Redespliega la aplicación para que tomen efecto.
 
 ## 📝 Actualizaciones futuras
 
@@ -78,21 +87,20 @@ Vercel desplegará automáticamente los cambios en producción.
 
 ## 🛡️ Servicios integrados
 
-La aplicación consulta estos servicios sin necesidad de API keys:
+La aplicación usa APIs JSON oficiales (claves gratuitas vía variables de entorno):
 
-- ✅ **AlienVault OTX** - API pública
-- ✅ **MalwareBazaar** - API pública
-- ✅ **ThreatFox** - API pública
-- 🔗 **VirusTotal** - Enlace directo (requiere crear cuenta para ver detalles)
-- 🔗 **Hybrid Analysis** - Enlace directo
+- ✅ **abuse.ch** (MalwareBazaar, ThreatFox, URLhaus) — 1 Auth-Key compartida
+- ✅ **VirusTotal** — API v3, 70+ motores antivirus (500/día, uso no comercial)
+- ✅ **Hybrid Analysis** — API v2 (sandbox)
+- ✅ **AlienVault OTX** — funciona incluso sin clave
 
 ## 📊 Características principales
 
 - 📁 Carga de archivos hasta 50MB
 - 🔐 Cálculo de hashes MD5, SHA-1, SHA-256
-- 🌐 Consulta automática a múltiples bases de datos
+- 🌐 Consulta automática a múltiples bases de datos vía API JSON
 - 🎨 Interfaz responsive con modo oscuro
-- ⚡ Sin backend adicional necesario
+- 🔑 Claves de API gestionadas por variables de entorno
 - 🔒 Procesamiento en memoria (no se almacenan archivos)
 
 ## 🆘 Solución de problemas

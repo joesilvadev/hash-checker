@@ -58,7 +58,7 @@ export default function Home() {
       </div>
 
       <footer className="text-center text-gray-400 py-8">
-        <p>Desarrollado para análisis de seguridad • Sin API keys requeridas</p>
+        <p>Desarrollado para análisis de seguridad • APIs oficiales gratuitas</p>
       </footer>
     </main>
   );
