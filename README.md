@@ -1,6 +1,8 @@
 # 🛡️ Hash Checker - Analizador de Malware
 
-Aplicación web para analizar archivos y verificar si son malware consultando múltiples bases de datos de seguridad sin necesidad de API keys.
+Aplicación web para analizar archivos y verificar si son malware consultando múltiples bases de datos de seguridad mediante APIs JSON oficiales.
+
+🔗 **Demo en vivo:** [hash-checker-phi.vercel.app](https://hash-checker-phi.vercel.app)
 
 ## 🚀 Características
 
@@ -55,12 +57,23 @@ npm run dev
 
 ## 🚀 Despliegue en Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/tu-usuario/hash-checker)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/joesilvadev/hash-checker)
 
-1. Haz fork o clona este repositorio
-2. Importa el proyecto en [Vercel](https://vercel.com)
-3. Vercel detectará automáticamente Next.js y configurará el build
-4. ¡Despliega!
+El repositorio ya está conectado a Vercel: **cada `git push` a `master` despliega automáticamente en producción**.
+
+1. Importa el proyecto en [Vercel](https://vercel.com) (detección automática de Next.js)
+2. En **Settings → Environment Variables** añade las claves (`ABUSECH_AUTH_KEY`, `VIRUSTOTAL_API_KEY`, `HYBRID_ANALYSIS_API_KEY`; `OTX_API_KEY` es opcional)
+3. Despliega
+
+O con la CLI:
+
+```bash
+vercel link
+vercel env add ABUSECH_AUTH_KEY production
+vercel env add VIRUSTOTAL_API_KEY production
+vercel env add HYBRID_ANALYSIS_API_KEY production
+vercel deploy --prod
+```
 
 ## 📝 Uso
 

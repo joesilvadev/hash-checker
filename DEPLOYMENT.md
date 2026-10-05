@@ -16,8 +16,7 @@ Una vez creado el repositorio en GitHub, ejecuta estos comandos:
 
 ```bash
 git remote add origin https://github.com/joesilvadev/hash-checker.git
-git branch -M main
-git push -u origin main
+git push -u origin master
 ```
 
 ## 🌐 Desplegar en Vercel
@@ -37,10 +36,20 @@ git push -u origin main
 ```bash
 npm i -g vercel
 vercel login
-vercel
+vercel link
+
+# Claves en producción (repite con `preview` y `development` si las quieres ahí)
+vercel env add ABUSECH_AUTH_KEY production
+vercel env add VIRUSTOTAL_API_KEY production
+vercel env add HYBRID_ANALYSIS_API_KEY production
+
+vercel deploy --prod
 ```
 
-Sigue las instrucciones en pantalla y Vercel desplegará tu aplicación automáticamente.
+Producción actual: **https://hash-checker-phi.vercel.app**
+
+> El proyecto ya está vinculado a Vercel y el repositorio de GitHub está conectado, por lo
+> que cada `git push` a `master` genera un despliegue automático en producción.
 
 ## ✅ Verificación
 
